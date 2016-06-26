@@ -6,6 +6,7 @@ const boolean debug = true; //Turn this OFF if you don't want return messages.
 const int dirInitial = true; // Set the initial direction; forwards/backwards depends on setup
 const int modeThreshold = 1200;
 const int killThreshold = 1600;
+const int noSignalThreshold = 500;
 
 //Define pin numbers
 const int inSteer = 11; // Pin connected to steering output on R/C receiver
@@ -27,7 +28,7 @@ int rxMotor;
 int rxMode = 0;
 
 void setup() {
-  Serial.begin(9600); //Start the serial port at 9600 baud
+  Serial.begin(57600); //Start the serial port at 9600 baud
   if (debug == true) Serial.println("Ready to receive commands...\n");
 
   //Set the correct pin modes
@@ -35,6 +36,10 @@ void setup() {
   pinMode(dirPin, OUTPUT); //set the dir pin as an output
   pinMode(motorPin, OUTPUT);
   pinMode(voltSensePin, INPUT); //voltage sensing pin
+  pinMode(inMode, INPUT); //voltage sensing pin
+  pinMode(inMotor, INPUT); //voltage sensing pin
+  pinMode(inSteer, INPUT); //voltage sensing pin
+  
   steering.attach(steerPin);
 
   //Set the default outputs
@@ -52,24 +57,23 @@ void loop() {
     voltage = voltage/100;
     if (debug == true) Serial.print("Voltage: ");
     Serial.println(voltage, 3);
-    if (debug == true) {
-      Serial.print("Mode: "); // Read the mode output on R/C receiver);
-      Serial.println(rxMode);
-    }
-
 
     LEDstatus = !LEDstatus; //Flip the status for next time this runs
     digitalWrite(ledPin, LEDstatus); //turn the LED on or off
   }
+  
+  if (rxMode < noSignalThreshold) {
+    straightAndStop();
+  }
 
-  if (rxMode > killThreshold) { //Kill outputs
+  else if (rxMode > killThreshold) { //Kill outputs
     straightAndStop();
     Serial.println("Killed all outputs.");
   }
 
   else if (rxMode < modeThreshold) {  //Manual mode
     rxSteer = map(pulseIn(inSteer, HIGH, 20000), 800, 2000, 50, 150); // Read the steering output on R/C receiver
-    rxMotor = map(pulseIn(inMotor, HIGH, 20000), 800, 2000, 0, 200); // Read the motor output on R/C receiver
+    rxMotor = map(pulseIn(inMotor, HIGH, 20000), 820, 2000, 0, 200); // Read the motor output on R/C receiver
     
     if (mode == true) { // If we just came from auto control
       straightAndStop(); // Set the motor power to zero and straighten wheels
@@ -83,6 +87,8 @@ void loop() {
       Serial.print(rxSteer);
       Serial.print("  rxMotor: ");
       Serial.println(rxMotor);
+      Serial.print("  rxMode: ");
+      Serial.println(rxMode);
     }}
     
     analogWrite(motorPin, rxMotor);
