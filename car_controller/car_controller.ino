@@ -1,7 +1,6 @@
 #include <Servo.h>
 
 Servo steering;  //create a servo object for the steering
-Servo motor;  //create a servo object for the motor controller
 
 String command; //Keep track of our command as it comes in
 String value;
@@ -18,16 +17,17 @@ const int ledPin = 13;
 const int voltSensePin = A3;
 const int dirInitial = true;
 
-
 void setup() {
   Serial.begin(9600); //Start the serial port at 9600 baud
-  if (debug == true) Serial.println("Ready to receive commands from Terminator Tim.\n");
+  if (debug == true) Serial.println("Ready to receive commands...\n");
   pinMode(ledPin, OUTPUT); //set the LED as an output
   pinMode(dirPin, OUTPUT); //set the dir pin as an output
+  pinMode(motorPin, OUTPUT); //set the motor pin as an output
   pinMode(voltSensePin, INPUT); //voltage sensing pin
-  digitalWrite(dirPin, dirInitial); //set the initial direction or it's floating (bad)
+  digitalWrite(dirPin, dirInitial); //set the initial direction
   steering.attach(steerPin);
-  motor.attach(motorPin);
+  
+  straightAndStop()
 }
 
 void loop() {
@@ -58,7 +58,7 @@ void loop() {
     }
     
     else if (command == "motor") {
-      motor.write(value.toInt());
+      analogWrite(motorPin, value.toInt());
     }
     
     else if (command == "motor-dir") {
@@ -71,3 +71,7 @@ void loop() {
   }
 }
 
+void straightAndStop() {
+  analogWrite(motorPin, 0);
+  steering.write(0);
+}
