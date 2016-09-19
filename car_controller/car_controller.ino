@@ -50,7 +50,7 @@ void setup() {
   throttle.attach(motorPin);
 
   straightAndStop();
-  delay(3000);
+  delay(1000);
 }
 
 void loop() {
@@ -74,7 +74,7 @@ void loop() {
 
   }
 
-  else if ((rxMode < killThreshold) && (rxMode > 900)) {  //Manual mode
+  else if ((rxMode < modeThreshold) && (rxMode > 900)) {  //Manual mode
     if (mode == true) { // If we just came from auto control
       straightAndStop(); // Set the motor power to zero and straighten wheels
       Serial.println("Entered manual control mode.");
@@ -87,9 +87,12 @@ void loop() {
     rxMotor = map(rxMotorRaw, 1000, 2000, 40, 150); // Read the motor output on R/C receiver
 
     if (inputsOut) {
-      Serial.print(rxSteer);
-      Serial.print(",");
-      Serial.println(rxMotor);
+      while (Serial.available() > 0) {
+        Serial.read();
+        Serial.print(rxSteer);
+        Serial.print(",");
+        Serial.println(rxMotor);
+      }
 
       if (debug) {
         Serial.print("rawRxMotor,");
