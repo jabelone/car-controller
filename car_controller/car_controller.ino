@@ -3,7 +3,7 @@ Servo steering;
 Servo throttle;
 
 //Settings
-const boolean debug = false; //Turn this OFF if you don't want debug messages.
+const boolean debug = true; //Turn this OFF if you don't want debug messages.
 const boolean inputsOut = true; //Turn this OFF if you don't want the inputs to be sent via uart.
 const boolean voltageOut = false; //Turn this ON if you want votlage messages.
 const int dirInitial = true; // Set the initial direction; forwards/backwards depends on setup
@@ -118,7 +118,7 @@ void loop() {
     while (Serial.available() > 0) { //If there is something in the serial buffer waiting to be read
 
       command = Serial.readStringUntil(',');
-      Serial.read(); //skip the comma
+      //Serial.read(); //skip the comma
       value = Serial.readStringUntil('\n');
       Serial.read(); //skip the new line
 
