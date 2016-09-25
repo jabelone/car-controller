@@ -130,7 +130,7 @@ void loop() {
       }
 
       else if (command == "motor") {
-        motor.write(value.toInt());
+        throttle.write(value.toInt());
       }
 
       else {
