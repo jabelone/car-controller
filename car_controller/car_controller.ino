@@ -130,7 +130,7 @@ void loop() {
       }
 
       else if (command == "motor") {
-        analogWrite(motorPin, value.toInt());
+        motor.write(value.toInt());
       }
 
       else {
