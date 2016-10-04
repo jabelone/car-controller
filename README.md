@@ -3,6 +3,8 @@ This project provides firmware that runs on an arduino.  This firmware, coupled 
 
 By sending the steering and motor outputs over UART to a real time microcontroller, reliability can be ensured.  This is because these microcontrollers are specifically designed for stuff like this with very precise timing.  The firmware also reports the voltage of a battery; which is great for remote monitoring and safety.
 
+I created this for use in our machine learning car.  See a video of it [here](https://youtu.be/tFwCyHdAWf0) on YouTube.
+
 ## Setup
 It's fairly straight forward to use.  The PWM output and voltage monitoring pins are in configurable variables at the start of the program.  Specify which pins you're using; bear in mind the voltage monitor must be an analog input.
 
