@@ -5,6 +5,9 @@ By sending the steering and motor outputs over UART to a real time microcontroll
 
 I created this for use in our machine learning car.  See a video of it [here](https://youtu.be/tFwCyHdAWf0) on YouTube.
 
+
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/tFwCyHdAWf0/0.jpg)](https://youtu.be/tFwCyHdAWf0 "Machine Learning Car")
+
 ## Setup
 It's fairly straight forward to use.  The PWM output and voltage monitoring pins are in configurable variables at the start of the program.  Specify which pins you're using; bear in mind the voltage monitor must be an analog input.
 
