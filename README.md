@@ -1,11 +1,9 @@
 # Car Controller
 This project provides firmware that runs on an arduino.  This firmware, coupled with an arduino, provides a serial (UART) interface for outputting PWM signals.  Something like a raspberry pi has lots of processing power and I/O; but it can't reliably drive PWM outputs for servos etc.  Due to the PWM being done in software, any slight lag will effect the precise timing required.
 
-By sending the steering and motor outputs over UART to a real time microcontroller, reliability can be ensured.  This is because these microcontrollers are specifically designed for stuff like this with very precise timing.  The firmware also reports the voltage of a battery; which is great for remote monitoring and safety.
+By sending the steering and motor outputs over UART to a real time microcontroller, reliability can be ensured.  This is because these microcontrollers are specifically designed for stuff like this with very precise timing.  The firmware also reports the voltage of a battery; which is great for remote monitoring and safety.  I created this for use in our machine learning car.  
 
-I created this for use in our machine learning car.  See a video of it [here](https://youtu.be/tFwCyHdAWf0) on YouTube.
-
-
+##Click the video below to see it in action!
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/tFwCyHdAWf0/0.jpg)](https://youtu.be/tFwCyHdAWf0 "Machine Learning Car")
 
 ## Setup
