@@ -24,3 +24,6 @@ You can send it two commands via UART, "motor,x" to control motor output and "st
 
 # License
 As with all my projects this is released under a GNU GPLv3 or later license in the hope it will be useful.
+
+# References
+This is what we used in Kendricks [Suiron project](https://github.com/kendricktan/suiron).
