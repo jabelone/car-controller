@@ -27,3 +27,4 @@ As with all my projects this is released under a GNU GPLv3 or later license in t
 
 # References
 This is what we used in Kendricks [Suiron project](https://github.com/kendricktan/suiron).
+Checkout my detailed blog post showing this in action! [(link)](jabelone.com.au/blog/make-autonomous-car-code-included/)
